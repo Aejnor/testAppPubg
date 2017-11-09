@@ -9,7 +9,6 @@
 
     $queryResult = $pdo->query("SELECT * FROM user");
 
-dameDato($queryResult)
 
 ?>
 
@@ -20,6 +19,7 @@ dameDato($queryResult)
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/menudropdown.css">
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -49,35 +49,39 @@ dameDato($queryResult)
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Update</th>
+            <th>Options</th>
             <th>Image</th>
             <th>Username</th>
             <th>Favorite Weapon</th>
             <th>Wins</th>
             <th>Rating</th>
             <th>Most Kills</th>
-            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
             <?php while( $row = $queryResult->fetch(PDO::FETCH_ASSOC) ): ?>
             <tr>
-                <td><a href="update.php?id=<?=$row['id']?>" class="editar">
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                    </a>
+                <td>
+                    <div class="dropdown">
+                        <button class="dropbtn">Options <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></button>
+                        <div class="dropdown-content">
+                            <a href="update.php?id=<?=$row['id']?>" class="editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"> Edit</span></a>
+                                <a href="delete.php?id=<?=$row['id']?>" class="borrar"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</span></a>
+                        </div>
+                    </div>
                 </td>
-                <td><img src="<?=$row['image']?>" alt="Image of <?=$row['username']?>"></td>
+                <td><img src="<?=$row['image']?>" alt="Image of <?=$row['username']?>" width="210"></td>
                 <td><?=$row['username']?></td>
                 <td><?=$row['favweapon']?></td>
                 <td><?=$row['wins']?></td>
                 <td><?=$row['rating']?></td>
                 <td><?=$row['mostkills']?></td>
-                <td><a href="delete.php?id=<?=$row['id']?>" class="borrar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
             </tr>
         <?php endwhile; ?>
 
         </tbody>
     </table>
+
 </div><!-- /.container -->
 </body>
 </html>
